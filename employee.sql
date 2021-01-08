@@ -17,7 +17,7 @@ CREATE TABLE department(
   PRIMARY KEY (id)
 );
 
-CREATE TABLE department(
+CREATE TABLE position ( 
   id INT NOT NULL,
   salary decimal(30) NULL,
   department_id INT
