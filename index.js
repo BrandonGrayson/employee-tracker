@@ -18,8 +18,8 @@ const connection = mysql.createConnection({
 
 connection.connect(function(err) {
     if (err) throw err;
+    console.log('connected as id ' + connection.threadId);
     runSearch()
-    console.log('connection made')
 });
 
 function runSearch() {
@@ -71,5 +71,7 @@ function runSearch() {
       });
 }
 
-
-// generate an array of questions
+// addEmployee function
+function addEmployee () {
+    console.log('they selected to add employee')
+}
