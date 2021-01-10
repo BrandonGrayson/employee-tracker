@@ -183,11 +183,21 @@ function addRole () {
           message: 'What is the department id?'
         },
     ]).then(answers => {
-        console.log(answers)
+      // use constructor function to create a new role 
+      // convert id and department_id to integers
+      answers.id = parseInt(answers.id)
+      answers.department_id = parseInt(answers.department_id)
+
+      let newRole = new addNewRole(answers.id, answers.title, answers.salary, answers.department_id)
+      connection.query("INSERT INTO position Set ?", newRole, function (err, res) {
+        if (err) throw err
+      })
+        console.log(newRole)
+        console.log('This New Role has been sent for review!')
         // add new role to role table
-      
     })
+    connection.end()
     // find that role in data and update it
     // figure out which employee they want to add a role for
-    connection.end()
+    
 }
