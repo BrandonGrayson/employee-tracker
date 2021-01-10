@@ -152,7 +152,6 @@ function addEmployee () {
         runSearch()
         console.log(answers)
         console.log('DONE--->')
-        connection.end()
     })
     // create a new instance of employee
 
@@ -192,11 +191,12 @@ function addRole () {
       connection.query("INSERT INTO position Set ?", newRole, function (err, res) {
         if (err) throw err
       })
-        console.log(newRole)
+        console.table(newRole)
         console.log('This New Role has been sent for review!')
+
         // add new role to role table
     })
-    connection.end()
+    
     // find that role in data and update it
     // figure out which employee they want to add a role for
     
