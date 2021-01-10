@@ -2,6 +2,7 @@ const mysql = require("mysql");
 const inquirer = require("inquirer");
 const Employee = require('./lib/employee');
 const addNewRole = require('./lib/add-roles')
+const Department = require('./lib/department')
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -193,10 +194,8 @@ function addRole () {
       })
         console.table(newRole)
         console.log('This New Role has been sent for review!')
-
         // add new role to role table
-    })
-    
+    })  
     // find that role in data and update it
     // figure out which employee they want to add a role for
     
