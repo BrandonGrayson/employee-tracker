@@ -200,3 +200,26 @@ function addRole () {
     // figure out which employee they want to add a role for
     
 }
+
+function addDepartment () {
+  console.log('They selected to add a Department')
+  inquirer.prompt([
+    {
+        type: 'input',
+        name: 'id',
+        message: 'What is the id for this department?'
+    },
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of this department?'
+    },
+]).then(answers => {
+  answers.id = parseInt(answers.id)
+  let newDepartment = new Department(answers.id, answers.name)
+  connection.query("INSERT INTO department Set ?", newDepartment, function (err, res) {
+    if (err) throw err
+  })
+  console.table(answers)
+})
+}
