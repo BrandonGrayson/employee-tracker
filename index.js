@@ -1,6 +1,8 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-const Employee = require('./lib/employee')
+const Employee = require('./lib/employee');
+const addNewRole = require('./lib/add-roles')
+const Department = require('./lib/department')
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -88,30 +90,69 @@ function addEmployee () {
                 message: 'What is the Employees last name?'
             },
             {
-                type: 'input',
+                type: 'list',
                 name: 'role',
-                message: 'What is the Employees role_id?',
+                message: 'What is the Employees role?',
+                choices: [
+                  'Accountant',
+                  'Developer',
+                  'Engineer',
+                ]
   
             },
             {
-                type: 'input',
-                name: 'manager_id',
-                message: 'Who is the Employees manager_id?',
+                type: 'list',
+                name: 'manager',
+                message: 'Who is the Employees manager?',
+                choices: [
+                  'Chris Rock',
+                  'Dave Chappelle',
+                  'Kevin Hart'
+                ]
             },
-
         ]
     ).then(answers => {
-        let newEmployee = new Employee(answers.first_name, answers.last_name, answers.role, answers.manager_id)
+      // console.log(answers)
+      switch (answers.role) {
+        case "Accountant":
+          answers.role = 1
+          break;
+  
+        case "Developer":
+          answers.role = 2
+          break;
+  
+        case "Engineer":
+          answers.role = 3
+          break;
+      }
+
+      switch (answers.manager) {
+        case "Chris Rock":
+          answers.manager = 4
+          break;
+  
+        case "Dave Chappelle":
+          answers.manager = 5
+          break;
+  
+        case "Kevin Hart":
+          answers.manager = 6
+          break; 
+      }
+        let newEmployee = new Employee(answers.first_name, answers.last_name, answers.role, answers.manager)
         console.table(newEmployee)
         
         // insert new Employee into mysql
         // 
-        var query = connection.query("INSERT INTO employee SET ? ", newEmployee, function (err, res) {
+        connection.query("INSERT INTO employee SET ? ", newEmployee, function (err, res) {
             if (err) throw err;
 
         })
-        console.log('DONE--->')
+        
         runSearch()
+        console.log(answers)
+        console.log('DONE--->')
     })
     // create a new instance of employee
 
@@ -123,15 +164,62 @@ function addRole () {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'employee',
-            message: 'What is the new role you want to add?'
+            name: 'id',
+            message: 'What is the id for this role?'
+        },
+        {
+          type: 'input',
+          name: 'title',
+          message: 'What is the name of this role?'
+        },
+        {
+          type: 'input',
+          name: 'salary',
+          message: 'What is the Salary for this role?'
+        },
+        {
+          type: 'input',
+          name: 'department_id',
+          message: 'What is the department id?'
         },
     ]).then(answers => {
-        console.log(answers)
+      // use constructor function to create a new role 
+      // convert id and department_id to integers
+      answers.id = parseInt(answers.id)
+      answers.department_id = parseInt(answers.department_id)
+
+      let newRole = new addNewRole(answers.id, answers.title, answers.salary, answers.department_id)
+      connection.query("INSERT INTO position Set ?", newRole, function (err, res) {
+        if (err) throw err
+      })
+        console.table(newRole)
+        console.log('This New Role has been sent for review!')
         // add new role to role table
-      
-    })
+    })  
     // find that role in data and update it
     // figure out which employee they want to add a role for
-    connection.end()
+    
+}
+
+function addDepartment () {
+  console.log('They selected to add a Department')
+  inquirer.prompt([
+    {
+        type: 'input',
+        name: 'id',
+        message: 'What is the id for this department?'
+    },
+    {
+      type: 'input',
+      name: 'name',
+      message: 'What is the name of this department?'
+    },
+]).then(answers => {
+  answers.id = parseInt(answers.id)
+  let newDepartment = new Department(answers.id, answers.name)
+  connection.query("INSERT INTO department Set ?", newDepartment, function (err, res) {
+    if (err) throw err
+  })
+  console.table(answers)
+})
 }

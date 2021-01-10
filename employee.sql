@@ -19,8 +19,9 @@ CREATE TABLE department(
 );
 
 CREATE TABLE position ( 
-  id INT NOT NULL,
-  salary decimal(30) NULL,
-  department_id INT
+  id INT,
+  title VARCHAR(30),
+  salary decimal(30),
+  department_id INT, 
   PRIMARY KEY (id)
 );
