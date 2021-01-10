@@ -163,8 +163,23 @@ function addRole () {
     inquirer.prompt([
         {
             type: 'input',
-            name: 'employee',
-            message: 'What is the new role you want to add?'
+            name: 'id',
+            message: 'What is the id for the new role?'
+        },
+        {
+          type: 'input',
+          name: 'title',
+          message: 'What is the name of this role?'
+        },
+        {
+          type: 'input',
+          name: 'salary',
+          message: 'What is the Salary for this role?'
+        },
+        {
+          type: 'input',
+          name: 'department_id',
+          message: 'What is the name of this role?'
         },
     ]).then(answers => {
         console.log(answers)
