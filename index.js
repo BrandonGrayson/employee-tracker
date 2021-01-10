@@ -59,15 +59,15 @@ function runSearch() {
           break;
   
         case "View roles":
-          connection.end();
+          viewRoles();
           break;
 
           case "View employees":
-            multiSearch();
+            viewEmployees();
             break;
     
           case "Update employee roles":
-            rangeSearch();
+            updateEmployee();
             break;
         }
       });
@@ -214,12 +214,12 @@ function addDepartment () {
       name: 'name',
       message: 'What is the name of this department?'
     },
-]).then(answers => {
-  answers.id = parseInt(answers.id)
-  let newDepartment = new Department(answers.id, answers.name)
-  connection.query("INSERT INTO department Set ?", newDepartment, function (err, res) {
-    if (err) throw err
+  ]).then(answers => {
+      answers.id = parseInt(answers.id)
+      let newDepartment = new Department(answers.id, answers.name)
+      connection.query("INSERT INTO department Set ?", newDepartment, function (err, res) {
+      if (err) throw err
+    })
+    console.table(answers)
   })
-  console.table(answers)
-})
 }
