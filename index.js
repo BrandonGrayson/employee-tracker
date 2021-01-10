@@ -1,6 +1,7 @@
 const mysql = require("mysql");
 const inquirer = require("inquirer");
-const Employee = require('./lib/employee')
+const Employee = require('./lib/employee');
+const addNewRole = require('./lib/add-roles')
 
 const connection = mysql.createConnection({
   host: "localhost",
@@ -164,7 +165,7 @@ function addRole () {
         {
             type: 'input',
             name: 'id',
-            message: 'What is the id for the new role?'
+            message: 'What is the id for this role?'
         },
         {
           type: 'input',
@@ -179,7 +180,7 @@ function addRole () {
         {
           type: 'input',
           name: 'department_id',
-          message: 'What is the name of this role?'
+          message: 'What is the department id?'
         },
     ]).then(answers => {
         console.log(answers)
