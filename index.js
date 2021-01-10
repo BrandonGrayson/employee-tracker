@@ -88,30 +88,70 @@ function addEmployee () {
                 message: 'What is the Employees last name?'
             },
             {
-                type: 'input',
+                type: 'list',
                 name: 'role',
-                message: 'What is the Employees role_id?',
+                message: 'What is the Employees role?',
+                choices: [
+                  'Accountant',
+                  'Developer',
+                  'Engineer',
+                ]
   
             },
             {
-                type: 'input',
-                name: 'manager_id',
-                message: 'Who is the Employees manager_id?',
+                type: 'list',
+                name: 'manager',
+                message: 'Who is the Employees manager?',
+                choices: [
+                  'Chris Rock',
+                  'Dave Chappelle',
+                  'Kevin Hart'
+                ]
             },
-
         ]
     ).then(answers => {
-        let newEmployee = new Employee(answers.first_name, answers.last_name, answers.role, answers.manager_id)
+      // console.log(answers)
+      switch (answers.role) {
+        case "Accountant":
+          answers.role = 1
+          break;
+  
+        case "Developer":
+          answers.role = 2
+          break;
+  
+        case "Engineer":
+          answers.role = 3
+          break;
+      }
+
+      switch (answers.manager) {
+        case "Chris Rock":
+          answers.manager = 4
+          break;
+  
+        case "Dave Chappelle":
+          answers.manager = 5
+          break;
+  
+        case "Kevin Hart":
+          answers.manager = 6
+          break; 
+      }
+        let newEmployee = new Employee(answers.first_name, answers.last_name, answers.role, answers.manager)
         console.table(newEmployee)
         
         // insert new Employee into mysql
         // 
-        var query = connection.query("INSERT INTO employee SET ? ", newEmployee, function (err, res) {
+        connection.query("INSERT INTO employee SET ? ", newEmployee, function (err, res) {
             if (err) throw err;
 
         })
-        console.log('DONE--->')
+        
         runSearch()
+        console.log(answers)
+        console.log('DONE--->')
+        connection.end()
     })
     // create a new instance of employee
 
