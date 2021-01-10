@@ -223,3 +223,7 @@ function addDepartment () {
     console.table(answers)
   })
 }
+
+function viewEmployees () {
+  console.log('They selected to view and Employee')
+}
