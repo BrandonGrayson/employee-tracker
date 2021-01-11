@@ -237,7 +237,7 @@ function queryEmployees() {
 
 async function viewEmployees () {
   const result = await queryEmployees()
-  console.log(result)
+  console.table(result)
   // JSON.parse(query)
 }
 
@@ -254,7 +254,7 @@ function queryDepartments() {
 
 async function viewDepartment () {
   const result = await queryDepartments()
-  console.log(result)
+  console.table(result)
   // JSON.parse(query)
 }
 
@@ -271,7 +271,7 @@ function queryRoles() {
 
 async function viewRoles () {
   const result = await queryRoles()
-  console.log(result)
+  console.table(result)
   // JSON.parse(query)
 }
 
@@ -301,17 +301,26 @@ function updateEmployeeRole () {
       // ]
     }
   ]).then(answers => {
-    console.table(answers)
+    // console.table(answers)
     // answers.employee
     // let newRole = answers.newRole
-    // let data = connection.query("UPDATE roles, SET ? WHERE id ?", answers.employee, answers.newRole, async function (err, res) {
-    //   if (err) throw err
-    //   console.table(data)
-    // })
+    // function queryData() {
+
+
+    // }
+    connection.query("UPDATE roles SET title = ? WHERE id = ?", [answers.newRole, answers.employee], function (err, res) {
+      if (err) throw err
+    })
+
+    console.table(answers)
+    
+
+
   })
 }
 
-async function viewUpdatedEmployee () {
-  console.table(answers)
-    // const result = await 
-}
+// async function viewUpdatedEmployee () {
+//   let data = answers
+//   console.table(answers)
+//     // const result = await 
+// }
