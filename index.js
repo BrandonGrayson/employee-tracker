@@ -67,7 +67,7 @@ function runSearch() {
             break;
     
           case "Update employee roles":
-            updateEmployee();
+            updateEmployeeRole();
             break;
         }
       });
@@ -275,4 +275,30 @@ async function viewRoles () {
   // JSON.parse(query)
 }
 
-
+function updateEmployeeRole () {
+  console.log('You selected to update an employee!')
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'employee',
+      message: 'Which Employee would you like to update',
+      choices: [
+        'Patrick Mahomes',
+        'Lamar Jackson',
+        'Russell Wilson'
+      ]
+    },
+    {
+      type: 'list',
+      name: 'newRole',
+      message: 'What is their new Role?',
+      choices: [
+        'Accountant',
+        'Developer',
+        'Engineer'
+      ]
+    }
+  ]).then(answers => {
+    console.log(answers)
+  })
+}
