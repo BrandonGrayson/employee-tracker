@@ -225,12 +225,23 @@ function addDepartment () {
 }
 
 function viewEmployees () {
-  console.log('They selected to view and Employee')
+  const query = connection.query("SELECT first_name, last_name, role_id, manager_id, title, salary, department_id FROM employee_DB.employee AS E JOIN employee_DB.roles AS R ON E.id = R.id;")
+  console.table(query)
+}
+
+
+console.log('They selected to view an Employee')
   inquirer.prompt([
     {
       type: 'list',
       name: 'employee',
-      message: 'Which employee do you want to view',     
+      message: 'Which employee do you want to view',
+      choices: [
+        'Patrick Mahomes',
+        'Lamar Jackson',
+        'Russell Wilson'
+      ]     
     }
-  ])
-}
+  ]).then(answers => {
+    console.log(`TheY would like to view ${answers}`)
+  })
