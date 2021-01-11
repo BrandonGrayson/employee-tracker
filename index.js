@@ -228,8 +228,9 @@ function queryEmployees() {
   return new Promise (resolve => {
     let data = connection.query("SELECT first_name, last_name, role_id, manager_id, title, salary, department_id FROM employee_DB.employee AS E JOIN employee_DB.roles AS R ON E.role_id = R.id;", function (err, res) {
       if (err) throw err
+      console.table(res)
       resolve('resolved')
-      return data
+      // return data
     })
   })
  
@@ -240,20 +241,3 @@ async function viewEmployees () {
   console.log(result)
   // JSON.parse(query)
 }
-
-
-// console.log('They selected to view an Employee')
-//   inquirer.prompt([
-//     {
-//       type: 'list',
-//       name: 'employee',
-//       message: 'Which employee do you want to view',
-//       choices: [
-//         'Patrick Mahomes',
-//         'Lamar Jackson',
-//         'Russell Wilson'
-//       ]     
-//     }
-//   ]).then(answers => {
-//     console.log(`TheY would like to view ${answers}`)
-//   })
