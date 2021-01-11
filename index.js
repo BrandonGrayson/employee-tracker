@@ -224,24 +224,37 @@ function addDepartment () {
   })
 }
 
-function viewEmployees () {
-  const query = connection.query("SELECT first_name, last_name, role_id, manager_id, title, salary, department_id FROM employee_DB.employee AS E JOIN employee_DB.roles AS R ON E.id = R.id;")
-  console.table(query)
+function queryEmployees() {
+  return new Promise (resolve => {
+    let data = connection.query("SELECT first_name, last_name, role_id, manager_id, title, salary, department_id FROM employee_DB.employee AS E JOIN employee_DB.roles AS R ON E.id = R.id;", function (err, res) {
+      if (err) throw err
+      console.table(data)
+      resolve('resolved')
+    })
+  })
+ 
+}
+
+async function viewEmployees () {
+  const result = await queryEmployees()
+  console.table(result)
+  // JSON.parse(query)
+  
 }
 
 
-console.log('They selected to view an Employee')
-  inquirer.prompt([
-    {
-      type: 'list',
-      name: 'employee',
-      message: 'Which employee do you want to view',
-      choices: [
-        'Patrick Mahomes',
-        'Lamar Jackson',
-        'Russell Wilson'
-      ]     
-    }
-  ]).then(answers => {
-    console.log(`TheY would like to view ${answers}`)
-  })
+// console.log('They selected to view an Employee')
+//   inquirer.prompt([
+//     {
+//       type: 'list',
+//       name: 'employee',
+//       message: 'Which employee do you want to view',
+//       choices: [
+//         'Patrick Mahomes',
+//         'Lamar Jackson',
+//         'Russell Wilson'
+//       ]     
+//     }
+//   ]).then(answers => {
+//     console.log(`TheY would like to view ${answers}`)
+//   })
