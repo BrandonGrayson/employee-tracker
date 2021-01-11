@@ -275,30 +275,43 @@ async function viewRoles () {
   // JSON.parse(query)
 }
 
+
+
 function updateEmployeeRole () {
   console.log('You selected to update an employee!')
   inquirer.prompt([
     {
       type: 'list',
       name: 'employee',
-      message: 'Which Employee would you like to update',
+      message: 'What is the id for the role you want to update',
       choices: [
-        'Patrick Mahomes',
-        'Lamar Jackson',
-        'Russell Wilson'
+        1,
+        2,
+        3
       ]
     },
     {
-      type: 'list',
+      type: 'input',
       name: 'newRole',
       message: 'What is their new Role?',
-      choices: [
-        'Accountant',
-        'Developer',
-        'Engineer'
-      ]
+      // choices: [
+      //   'Accountant',
+      //   'Developer',
+      //   'Engineer'
+      // ]
     }
   ]).then(answers => {
-    console.log(answers)
+    console.table(answers)
+    // answers.employee
+    // let newRole = answers.newRole
+    // let data = connection.query("UPDATE roles, SET ? WHERE id ?", answers.employee, answers.newRole, async function (err, res) {
+    //   if (err) throw err
+    //   console.table(data)
+    // })
   })
+}
+
+async function viewUpdatedEmployee () {
+  console.table(answers)
+    // const result = await 
 }
