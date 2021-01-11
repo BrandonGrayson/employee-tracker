@@ -13,9 +13,9 @@ VALUES("Developer", 100000.00, 2);
 Insert INTO roles (title, salary, department_id)
 VALUES("Engineer", 90000.00, 3);
 
-INSERT INTO department (name)
+INSERT INTO department (department_name)
 VALUES("OFFICE");
-INSERT INTO department (name)
+INSERT INTO department (department_name)
 VALUES("Development");
-INSERT INTO department (name)
+INSERT INTO department (department_name)
 VALUES("Engineering")

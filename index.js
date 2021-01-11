@@ -233,7 +233,6 @@ function queryEmployees() {
       // return data
     })
   })
- 
 }
 
 async function viewEmployees () {
@@ -241,3 +240,39 @@ async function viewEmployees () {
   console.log(result)
   // JSON.parse(query)
 }
+
+function queryDepartments() {
+  return new Promise (resolve => {
+    let data = connection.query("SELECT department_name, department_id FROM employee_DB.department AS D JOIN employee_DB.roles AS R ON D.id = R.id", function (err, res) {
+      if (err) throw err
+      console.table(res)
+      resolve('resolved')
+      // return data
+    })
+  })
+}
+
+async function viewDepartment () {
+  const result = await queryDepartments()
+  console.log(result)
+  // JSON.parse(query)
+}
+
+function queryRoles() {
+  return new Promise (resolve => {
+    let data = connection.query("SELECT title, salary, department_id, department_name FROM employee_DB.roles AS R JOIN employee_DB.department AS D ON R.id = D.id;", function (err, res) {
+      if (err) throw err
+      console.table(res)
+      resolve('resolved')
+      // return data
+    })
+  })
+}
+
+async function viewRoles () {
+  const result = await queryRoles()
+  console.log(result)
+  // JSON.parse(query)
+}
+
+
