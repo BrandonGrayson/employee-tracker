@@ -226,10 +226,10 @@ function addDepartment () {
 
 function queryEmployees() {
   return new Promise (resolve => {
-    let data = connection.query("SELECT first_name, last_name, role_id, manager_id, title, salary, department_id FROM employee_DB.employee AS E JOIN employee_DB.roles AS R ON E.id = R.id;", function (err, res) {
+    let data = connection.query("SELECT first_name, last_name, role_id, manager_id, title, salary, department_id FROM employee_DB.employee AS E JOIN employee_DB.roles AS R ON E.role_id = R.id;", function (err, res) {
       if (err) throw err
-      console.table(data)
       resolve('resolved')
+      return data
     })
   })
  
@@ -237,9 +237,8 @@ function queryEmployees() {
 
 async function viewEmployees () {
   const result = await queryEmployees()
-  console.table(result)
+  console.log(result)
   // JSON.parse(query)
-  
 }
 
 
