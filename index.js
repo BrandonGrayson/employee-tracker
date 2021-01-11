@@ -189,7 +189,7 @@ function addRole () {
       answers.department_id = parseInt(answers.department_id)
 
       let newRole = new addNewRole(answers.id, answers.title, answers.salary, answers.department_id)
-      connection.query("INSERT INTO position Set ?", newRole, function (err, res) {
+      connection.query("INSERT INTO roles Set ?", newRole, function (err, res) {
         if (err) throw err
       })
         console.table(newRole)
@@ -226,4 +226,11 @@ function addDepartment () {
 
 function viewEmployees () {
   console.log('They selected to view and Employee')
+  inquirer.prompt([
+    {
+      type: 'list',
+      name: 'employee',
+      message: 'Which employee do you want to view',     
+    }
+  ])
 }
